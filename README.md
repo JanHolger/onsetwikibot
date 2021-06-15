@@ -1,5 +1,5 @@
 # onsetwikibot
-A discord bot written in python 3 allowing to search the Onset Developer Wiki
+A discord bot written in python 3 allowing to search the [Onset Developer Wiki](https://dev.playonset.com/wiki/)
 
 ## Usage
 At the moment i'm not hosting a public instance of it but you can run it on your own machine!
