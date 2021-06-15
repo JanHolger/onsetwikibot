@@ -1,0 +1,4 @@
+discord
+mwclient
+html2markdown
+python-dotenv
