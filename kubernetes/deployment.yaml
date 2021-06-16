@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: onsetwikibot
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: onsetwikibot
+  template:
+    metadata:
+      labels:
+        app: onsetwikibot
+    spec:
+      containers:
+      - image: janbebendorf/onsetwikibot
+        imagePullPolicy: Always
+        name: bot
+        envFrom:
+        - configMapRef:
+            name: onsetwikibot

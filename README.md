@@ -14,6 +14,14 @@ You can either [directly invite](https://discord.com/oauth2/authorize?client_id=
 ### Docker
 You can find ready to use images on [DockerHub](https://hub.docker.com/r/janbebendorf/onsetwikibot)
 
+### Kubernetes
+You can setup your own instance in a kubernetes cluster with only these 3 commands
+```bash
+kubectl create namespace onsetwikibot
+kubectl -n onsetwikibot create configmap --from-literal DISCORD_BOT_TOKEN="YOUR_BOT_TOKEN" --from-literal DISCORD_BOT_COMMAND="$wiki" onsetwikibot
+kubectl -n onsetwikibot apply -f https://raw.githubusercontent.com/JanHolger/onsetwikibot/master/kubernetes/deployment.yaml
+```
+
 ### Available commands
 Command        | Description
 -------------- | --------------
