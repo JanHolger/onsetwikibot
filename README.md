@@ -2,7 +2,7 @@
 A discord bot written in python 3 allowing to search the [Onset Developer Wiki](https://dev.playonset.com/wiki/)
 
 ## Usage
-At the moment i'm not hosting a public instance of it but you can run it on your own machine!
+You can either [directly invite](https://discord.com/oauth2/authorize?client_id=854468960652886017&scope=bot&permissions=18432) the bot to your server or run it on your own server!
 
 ### Running it yourself
 1. [Create a Discord Bot Account](https://discordpy.readthedocs.io/en/stable/discord.html#creating-a-bot-account)
@@ -10,6 +10,9 @@ At the moment i'm not hosting a public instance of it but you can run it on your
 3. Install the dependencies using `pip3 install -r requirements.txt`
 4. Run the Bot using `python3 onsetwikibot.py`
 5. Invite it to your server and check if it works using the configured command (`$wiki` by default)
+
+### Docker
+You can find ready to use images on [DockerHub](https://hub.docker.com/r/janbebendorf/onsetwikibot)
 
 ### Available commands
 Command        | Description

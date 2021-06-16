@@ -10,6 +10,8 @@ try:
 except ImportError:
     pass
 
+VERSION = '1.0'
+
 command = os.getenv('DISCORD_BOT_COMMAND')
 if command == None or len(command) == 0:
     command = '$wiki'
@@ -62,7 +64,10 @@ async def on_message(message):
     if message.author == client.user:
         return
     if message.content == command:
-        await message.channel.send(embed = discord.Embed(title = 'Onset Wiki Bot', url = 'https://github.com/JanHolger/onsetwikibot', description = 'v1.0 by Jan Bebendorf aka. JanHolger').add_field(name = 'Usage', value = 'Use `' + command + ' <search>` to search the wiki!'))
+        await message.channel.send(embed = discord.Embed(title = 'Onset Wiki Bot', url = 'https://github.com/JanHolger/onsetwikibot', description = 'v' + VERSION + ' by <@185356094191697921>')
+            .add_field(name = 'Usage', value = 'Use `' + command + ' <search>` to search the wiki!')
+            .add_field(name = 'Wiki', value = 'https://dev.playonset.com/wiki/')
+        )
     elif message.content.startswith(command + ' '):
         query = message.content[6:]
         results = searchwiki(query)
