@@ -62,7 +62,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     if message.content == command:
-        await message.channel.send(embed = discord.Embed(title = 'Onset Wiki Bot', url = 'https://github.com/JanHolger/onsetwikibot', description = 'by Jan Bebendorf aka. JanHolger').add_field(name = 'Usage', value = 'Use `' + command + ' <search>` to search the wiki!'))
+        await message.channel.send(embed = discord.Embed(title = 'Onset Wiki Bot', url = 'https://github.com/JanHolger/onsetwikibot', description = 'v1.0 by Jan Bebendorf aka. JanHolger').add_field(name = 'Usage', value = 'Use `' + command + ' <search>` to search the wiki!'))
     elif message.content.startswith(command + ' '):
         query = message.content[6:]
         results = searchwiki(query)
