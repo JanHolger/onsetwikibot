@@ -3,6 +3,7 @@ import html2markdown
 import re
 import discord
 import os
+import functools
 
 try:
     from dotenv import load_dotenv
@@ -10,7 +11,7 @@ try:
 except ImportError:
     pass
 
-VERSION = '1.0'
+VERSION = '1.0.1'
 
 command = os.getenv('DISCORD_BOT_COMMAND')
 if command == None or len(command) == 0:
@@ -59,6 +60,16 @@ def searchwiki(search):
 
 client = discord.Client()
 
+def splittext(source):
+    texts = []
+    current = []
+    for ln in source.split('\n'):
+        if len(ln) + functools.reduce(lambda a, b: (len(a) if type(a) == 'list' else a) + len(b), current , 0) + len(current) - 1 > 1024:
+            texts.append('\n'.join(current))
+            current = []
+        current.append(ln)
+    return texts
+
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -74,17 +85,20 @@ async def on_message(message):
         if len(results) == 0:
             await message.channel.send(embed = discord.Embed(colour = discord.Colour.red(), title = 'No results found!'))
         elif len(results) == 1:
-            await message.channel.send(embed = discord.Embed(title = results[0].page_title, url = 'https://dev.playonset.com/wiki/' + results[0].name, colour = discord.Colour.green())
-                .add_field(
-                    name = 'Docs',
-                    value = '\n' + todiscord(tomd(onsetwiki.get('parse', pageid=results[0].pageid, disableeditsection=True, disabletoc=True)['parse']['text']['*'])),
+            embed = discord.Embed(title = results[0].page_title, url = 'https://dev.playonset.com/wiki/' + results[0].name, colour = discord.Colour.green())
+            i = 0
+            for text in splittext(todiscord(tomd(onsetwiki.get('parse', pageid=results[0].pageid, disableeditsection=True, disabletoc=True)['parse']['text']['*']))):
+                embed.add_field(
+                    name = 'Docs' if i == 0 else '...',
+                    value = text,
                     inline = False
                 )
-            )
+                i = i + 1
+            await message.channel.send(embed = embed)
         else:
             embed = discord.Embed(title = 'Results for "' + query + '"', url = 'https://dev.playonset.com/index.php?search=' + query, colour = discord.Colour.blue())
             for r in results:
-                if(len(embed.fields) == 16):
+                if(len(embed.fields) == 20):
                     await message.channel.send(embed = embed)
                     embed = discord.Embed(colour = discord.Colour.blue())
                 embed.add_field(name = r.page_title, value = 'https://dev.playonset.com/wiki/' + r.name)
